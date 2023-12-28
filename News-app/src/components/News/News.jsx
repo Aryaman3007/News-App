@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios'
 import BackToTop from "../BackToTop";
+import { useAppContext } from "../context/AppContext";
 
 const News = () => {
   const navItems = [
@@ -40,7 +41,14 @@ const News = () => {
 
   const [data, setData] = useState([])
   const [visible, setVisible] = useState(6)
+  const { favorites, addToFavorites, removeFromFavorites } = useAppContext()
 
+  console.log('favorites are:', favorites)
+
+  const favoriteChecker = (index) => {
+    const boolean = favorites.some((news) => news.index === index)
+    return boolean
+  }
 
   const formatDate = (publishedAt) => {
     const date = new Date(publishedAt);
@@ -103,6 +111,17 @@ const News = () => {
                     <div className="flex flex-row items-center mt-8">
                       <a className="font-semibold text-slate-800 mr-2 hover:underline cursor-pointer" href={p.url}>READ MORE</a>
                       <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" /></svg>
+                    </div>
+                    <div>
+                      {favoriteChecker(p.index) ?
+                        (<button
+                          onClick={() => removeFromFavorites(p.index)}
+                          className="bg-red-600 text-white">Remove from Favourite</button>)
+                        :
+                        (<button
+                          onClick={() => addToFavorites(p)}
+                          className="bg-blue-600 text-white">Add to Favourite</button>)
+                      }
                     </div>
                   </div>
                 </div>

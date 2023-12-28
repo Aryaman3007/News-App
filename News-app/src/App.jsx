@@ -3,6 +3,7 @@ import './App.css'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Signup from './pages/Signup'
+import Favorites from './pages/Favorites'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
       <Route path="/login" element={<Login/>} />
       <Route path="/" element={<Home/>} />
       <Route path="/signup" element={<Signup/>} />
+      <Route path="/favorites" element={<Favorites/>} />
     </Routes>
     </>
   )
