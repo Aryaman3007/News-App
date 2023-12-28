@@ -33,8 +33,8 @@ function Login() {
     };
     return (
         <>
-            <div className="w-full min-h-screen bg-gradient-to-r from-purple-600 to-purple-300 flex flex-col justify-center items-center">
-                <div className="min-w-[480px] h-auto w-auto bg-white shadow-md p-8 rounded-2xl flex flex-col justify-center items-center">
+            <div className="w-full min-h-screen bg-gradient-to-r from-purple-600 to-purple-300  flex flex-col justify-center items-center px-4">
+                <div className="h-auto md:w-[480px] bg-white shadow-md p-8 rounded-2xl flex flex-col justify-center items-center w-full">
                     <h1 className="text-3xl font-semibold text-black mb-4">Login</h1>
 
                     <InputControl

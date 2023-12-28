@@ -45,8 +45,8 @@ const News = () => {
 
   console.log('favorites are:', favorites)
 
-  const favoriteChecker = (index) => {
-    const boolean = favorites.some((news) => news.index === index)
+  const favoriteChecker = (url) => {
+    const boolean = favorites.some((news) => news.url === url)
     return boolean
   }
 
@@ -74,7 +74,10 @@ const News = () => {
 
   return (
     <>
-      <div className="w-full flex md:flex-row flex-col flex-wrap justify-center my-8">
+    <h1 className="flex justify-center items-center mt-4 md:text-4xl text-2xl font-semibold text-slate-200">
+      TOP NEWS TOPICS
+    </h1>
+      <div className="w-full flex md:flex-row flex-col flex-wrap justify-center md:my-8 my-6">
         {navItems.map((item, index) =>
         (
           <div key={index} onClick={() => getNews(item.api)} className="md:w-1/3 w-full px-8 flex flex-col justify-center cursor-pointer opacity-85 hover:opacity-100 py-8">
@@ -98,9 +101,28 @@ const News = () => {
                     </div>
                   </div>
                   <div className="w-full px-4 flex flex-col py-8 justify-between">
-                    <div className="mb-4 text-slate-700 font-semibold font-sans flex items-center">
-                      <svg className="mx-2" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 448 512"><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192h80v56H48V192zm0 104h80v64H48V296zm128 0h96v64H176V296zm144 0h80v64H320V296zm80-48H320V192h80v56zm0 160v40c0 8.8-7.2 16-16 16H320V408h80zm-128 0v56H176V408h96zm-144 0v56H64c-8.8 0-16-7.2-16-16V408h80zM272 248H176V192h96v56z" /></svg>
-                      {formatDate(p.publishedAt)}
+                    <div className="flex flex-row justify-between">
+                      <div className="mb-4 text-slate-700 font-semibold font-sans flex items-center">
+                        <svg className="mx-2" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 448 512"><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192h80v56H48V192zm0 104h80v64H48V296zm128 0h96v64H176V296zm144 0h80v64H320V296zm80-48H320V192h80v56zm0 160v40c0 8.8-7.2 16-16 16H320V408h80zm-128 0v56H176V408h96zm-144 0v56H64c-8.8 0-16-7.2-16-16V408h80zM272 248H176V192h96v56z" /></svg>
+                        {formatDate(p.publishedAt)}
+                      </div>
+                      <div>
+                        {favoriteChecker(p.url) ?
+                          (<button
+                            onClick={() => removeFromFavorites(p.url)}
+                            className="bg-white rounded-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="22" width="22" viewBox="0 0 512 512"><path fill="red" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" /></svg>
+
+                          </button>)
+                          :
+                          (<button
+                            onClick={() => addToFavorites(p)}
+                            className="rounded-xl bg-white">
+                              <svg xmlns="http://www.w3.org/2000/svg" height="22" width="22" viewBox="0 0 512 512"><path fill="red" d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8v-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5v3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20c0 0-.1-.1-.1-.1c0 0 0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5v3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2v-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/></svg>
+
+                          </button>
+                          )}
+                      </div>
                     </div>
                     <div>
                       <h1 className="font-bold md:text-4xl text-2xl mb-2 text-blue-900">{p.title}</h1>
@@ -111,17 +133,6 @@ const News = () => {
                     <div className="flex flex-row items-center mt-8">
                       <a className="font-semibold text-slate-800 mr-2 hover:underline cursor-pointer" href={p.url}>READ MORE</a>
                       <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" /></svg>
-                    </div>
-                    <div>
-                      {favoriteChecker(p.index) ?
-                        (<button
-                          onClick={() => removeFromFavorites(p.index)}
-                          className="bg-red-600 text-white">Remove from Favourite</button>)
-                        :
-                        (<button
-                          onClick={() => addToFavorites(p)}
-                          className="bg-blue-600 text-white">Add to Favourite</button>)
-                      }
                     </div>
                   </div>
                 </div>

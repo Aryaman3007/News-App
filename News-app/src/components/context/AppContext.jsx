@@ -21,9 +21,9 @@ const AppContextProvider = ({children}) => {
         setFavorites(newFavorites)
     }
 
-    const removeFromFavorites = (index) => {
+    const removeFromFavorites = (url) => {
         const oldFavorites = [...favorites]
-        const newFavorites = oldFavorites.filter((news) => news.index !== index)
+        const newFavorites = oldFavorites.filter((news) => news.url !== url)
         setFavorites(newFavorites)
     }
 

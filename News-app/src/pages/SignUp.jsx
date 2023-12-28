@@ -41,8 +41,8 @@ function SignUp() {
 
   return (
     <>
-      <div className="w-full min-h-screen bg-gradient-to-r from-purple-600 to-purple-300 flex flex-col justify-center items-center">
-        <div className="min-w-[480px] w-auto bg-white shadow-md p-8 rounded-2xl flex flex-col justify-center items-center">
+      <div className="w-full min-h-screen bg-gradient-to-r from-purple-600 to-purple-300 flex flex-col justify-center items-cente px-2">
+        <div className="md:w-[480px] bg-white shadow-md p-8 rounded-2xl flex flex-col justify-center items-center w-full">
           <h1 className="text-3xl font-semibold text-black mb-4">Signup</h1>
 
           <InputControl

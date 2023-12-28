@@ -1,22 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Authentication from '../Authentication'
 import { useNavigate } from 'react-router-dom'
 
 function Navbar() {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
+    const [isToggle, setIsToggle] = useState(false)
+    const toggleMenu = () => {
+        setIsToggle(!isToggle)
+    }
 
     return (
         <>
-            <div className="navbar bg-white md:px-44 flex md:flex-row md:justify-around flex-col h-8">
-                <div onClick={() => navigate('/')} className="md:w-1/3 w-full flex justify-start cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="32" width="28" viewBox="0 0 512 512"><path fill="rgb(30, 58, 138)" d="M168 80c-13.3 0-24 10.7-24 24V408c0 8.4-1.4 16.5-4.1 24H440c13.3 0 24-10.7 24-24V104c0-13.3-10.7-24-24-24H168zM72 480c-39.8 0-72-32.2-72-72V112C0 98.7 10.7 88 24 88s24 10.7 24 24V408c0 13.3 10.7 24 24 24s24-10.7 24-24V104c0-39.8 32.2-72 72-72H440c39.8 0 72 32.2 72 72V408c0 39.8-32.2 72-72 72H72zM176 136c0-13.3 10.7-24 24-24h96c13.3 0 24 10.7 24 24v80c0 13.3-10.7 24-24 24H200c-13.3 0-24-10.7-24-24V136zm200-24h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24zM200 272H408c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80H408c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24z" /></svg>
-                    <a className="ml-4 md:text-3xl text-xl font-mono font-semibold text-blue-900">
-                        <span className='md:text-4xl text-2xl'>N</span>ews <span className='md:text-4xl text-2xl'>H</span>unt</a>
+            <div className="navbar bg-white md:px-44 flex md:flex-row md:justify-around md:items-center justify-between h-8 flex-col items-end px-0 pl-4">
+                <div className="w-full md:w-1/2 w-flex flex-row justify-between">
+                    <div onClick={() => navigate('/')} className="w-full flex md:justify-start cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="32" width="28" viewBox="0 0 512 512"><path fill="rgb(30, 58, 138)" d="M168 80c-13.3 0-24 10.7-24 24V408c0 8.4-1.4 16.5-4.1 24H440c13.3 0 24-10.7 24-24V104c0-13.3-10.7-24-24-24H168zM72 480c-39.8 0-72-32.2-72-72V112C0 98.7 10.7 88 24 88s24 10.7 24 24V408c0 13.3 10.7 24 24 24s24-10.7 24-24V104c0-39.8 32.2-72 72-72H440c39.8 0 72 32.2 72 72V408c0 39.8-32.2 72-72 72H72zM176 136c0-13.3 10.7-24 24-24h96c13.3 0 24 10.7 24 24v80c0 13.3-10.7 24-24 24H200c-13.3 0-24-10.7-24-24V136zm200-24h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24zM200 272H408c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80H408c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24z" /></svg>
+                        <a className="md:ml-4 ml-2 md:text-3xl text-xl font-mono font-semibold text-blue-900 md:flex-nowrap">
+                            <span className='md:text-4xl text-2xl'>N</span>ews <span className='md:text-4xl text-2xl'>H</span>unt
+                        </a>
+                    </div>
+                    <div className='text-3xl font-bold cursor-pointer md:hidden'>
+                        {isToggle ?
+                            <ion-icon onClick={toggleMenu} name="close-outline"></ion-icon>
+                            :
+                            <ion-icon onClick={toggleMenu} name="menu-outline"></ion-icon>
+                        }
+                    </div>
                 </div>
-                <div className='w-2/3 flex gap-x-4 justify-center text-blue-900 font-semibold text-xl'>
+                {isToggle &&
+                    <div className='absolute flex duration-300 bg-white gap-x-6 justify-end text-blue-900 mt-12 font-semibold py-4 px-2 md:hidden'>
+                        <Authentication />
+                    </div>
+                }
+                <div className='w-2/3 gap-x-4 justify-center text-blue-900 font-semibold text-xl hidden md:block'>
                     <Authentication />
                 </div>
-                <div className='w-full md:w-1/3 md:flex flex-row items-center justify-between px-12 hidden'>
+
+
+                <div className='w-full md:w-1/3 md:flex md:flex-row items-center justify-between px-8 md:opacity-100 hidden'>
                     <svg xmlns="http://www.w3.org/2000/svg" height="32" width="28" viewBox="0 0 448 512"><path fill='rgb(30,58,138)' d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192h80v56H48V192zm0 104h80v64H48V296zm128 0h96v64H176V296zm144 0h80v64H320V296zm80-48H320V192h80v56zm0 160v40c0 8.8-7.2 16-16 16H320V408h80zm-128 0v56H176V408h96zm-144 0v56H64c-8.8 0-16-7.2-16-16V408h80zM272 248H176V192h96v56z" /></svg>
                     <svg xmlns="http://www.w3.org/2000/svg" height="32" width="28" viewBox="0 0 448 512"><path fill='rgb(30,58,138)' d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64h98.2V334.2H109.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H255V480H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z" /></svg>
                     <svg xmlns="http://www.w3.org/2000/svg" height="32" width="28" viewBox="0 0 448 512"><path fill='rgb(30,58,138)' d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" /></svg>
