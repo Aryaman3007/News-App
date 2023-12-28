@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import InputControl from "../components/InputControl";
-import { auth } from "../config/firebase"
-import Navbar from "../components/Navbar/Navbar";
+import { auth } from "../config/Firebase"
 
 function Login() {
     const navigate = useNavigate();
@@ -25,7 +24,7 @@ function Login() {
         signInWithEmailAndPassword(auth, values.email, values.pass)
             .then(async (res) => {
                 setSubmitButtonDisabled(false);
-                navigate("/login");
+                navigate("/");
             })
             .catch((err) => {
                 setSubmitButtonDisabled(false);

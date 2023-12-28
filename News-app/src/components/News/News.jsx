@@ -41,10 +41,6 @@ const News = () => {
   const [data, setData] = useState([])
   const [visible, setVisible] = useState(6)
 
-  const showMoreItems = () => {
-    setVisible((prevValue) => prevValue + 4)
-  }
-
 
   const formatDate = (publishedAt) => {
     const date = new Date(publishedAt);
@@ -63,12 +59,17 @@ const News = () => {
         console.error('Error fetching news:', error);
       });
   }
+
+  const showMoreItems = () => {
+    setVisible((prevValue) => prevValue + 4)
+  }
+
   return (
     <>
-      <div className="w-full flex flex-row flex-wrap justify-center my-8">
-        {navItems.map((item,index) =>
+      <div className="w-full flex md:flex-row flex-col flex-wrap justify-center my-8">
+        {navItems.map((item, index) =>
         (
-          <div key={index} onClick={() => getNews(item.api)} className="w-1/3 px-8 flex flex-col justify-center cursor-pointer opacity-85 hover:opacity-100 py-8">
+          <div key={index} onClick={() => getNews(item.api)} className="md:w-1/3 w-full px-8 flex flex-col justify-center cursor-pointer opacity-85 hover:opacity-100 py-8">
             <img className="w-full h-60" src={item.img} />
             <h1 className='flex justify-center text-2xl font-semibold font-mono pt-2'>
               {item.name}
@@ -79,25 +80,25 @@ const News = () => {
       </div>
       <div className="bg-slate-200 flex flex-col justify-center items-center">
         <div className="flex flex-row flex-wrap justify-center">
-          {data.slice(0, visible).map((p,index) => {
+          {data.slice(0, visible).map((p, index) => {
             return (
               <div key={index} className="w-3/4 mx-4 my-4 min-h-content rounded-lg overflow-hidden shadow-xl bg-white">
-                <div className="flex flex-row">
-                  <div className="w-1/4">
-                    <div className="px-8 py-4">
-                      <img className="w-56 h-48" src={p.urlToImage} alt="image" />
+                <div className="flex md:flex-row flex-col">
+                  <div className="md:w-1/4 w-full">
+                    <div className="md:px-8 md:py-4">
+                      <img className="md:w-56 h-48 w-96" src={p.urlToImage} alt="image" />
                     </div>
                   </div>
-                  <div className="w-3/4 flex flex-col py-8 px-4 justify-between">
+                  <div className="w-full px-4 flex flex-col py-8 justify-between">
                     <div className="mb-4 text-slate-700 font-semibold font-sans flex items-center">
                       <svg className="mx-2" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 448 512"><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192h80v56H48V192zm0 104h80v64H48V296zm128 0h96v64H176V296zm144 0h80v64H320V296zm80-48H320V192h80v56zm0 160v40c0 8.8-7.2 16-16 16H320V408h80zm-128 0v56H176V408h96zm-144 0v56H64c-8.8 0-16-7.2-16-16V408h80zM272 248H176V192h96v56z" /></svg>
                       {formatDate(p.publishedAt)}
                     </div>
                     <div>
-                      <h1 className="font-bold text-4xl mb-2 text-blue-900">{p.title}</h1>
+                      <h1 className="font-bold md:text-4xl text-2xl mb-2 text-blue-900">{p.title}</h1>
                     </div>
                     <div>
-                      <div className="font-base font-serif text-black text-xl my-2">{p.description}</div>
+                      <div className="font-base font-serif text-black md:text-xl text-base my-2">{p.description}</div>
                     </div>
                     <div className="flex flex-row items-center mt-8">
                       <a className="font-semibold text-slate-800 mr-2 hover:underline cursor-pointer" href={p.url}>READ MORE</a>
@@ -112,6 +113,7 @@ const News = () => {
         {visible < data.length && (
           <button onClick={showMoreItems} className="bg-blue-700 px-8 py-4 mb-12 font-medium text-white my-4 hover:bg-blue-600">LOAD MORE</button>
         )}
+        <BackToTop />
       </div>
     </>
   );

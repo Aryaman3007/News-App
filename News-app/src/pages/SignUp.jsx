@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import InputControl from "../components/InputControl";
-import { auth } from "../config/firebase";
+import { auth } from "../config/Firebase";
 import Navbar from "../components/Navbar/Navbar";
 
 function SignUp() {
@@ -62,6 +62,7 @@ function SignUp() {
           <InputControl
             label="Password"
             placeholder="Enter password"
+            type= "password"
             onChange={(event) =>
               setValues((prev) => ({ ...prev, pass: event.target.value }))
             }
